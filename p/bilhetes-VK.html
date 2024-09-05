@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veículo - VagaKey</title>
+    <link rel="stylesheet" href="qr-code.css">
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #000000;
+            padding: 15px;
+        }
+
+        .navbar a, .dropbtn {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 20px;
+            font-size: 18px;
+            display: inline-block;
+        }
+
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: #333333; 
+            color: #ffffff; 
+            text-decoration: underline; 
+            text-decoration-color: #ffffff; 
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff; 
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: #000000;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1; 
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 70px; 
+        }
+
+        .bilhetesVK {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+            color: #000000; 
+            text-align: center;
+        }
+
+        h1 {
+            color: #000000; 
+            margin: 0 0 20px; 
+        }
+
+        .wallet {
+            margin-bottom: 20px;
+        }
+
+        .ticket {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px; 
+            overflow: hidden;
+        }
+
+        .ticket img {
+            display: none;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .ticket img:first-of-type {
+            display: block;
+        }
+
+        .btn {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #333333;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#about">Histórico</a>
+        <div class="dropdown">
+            <button class="dropbtn">Meu Perfil</button>
+            <div class="dropdown-content">
+                <a href="#webdesign">Carteira</a>
+                <a href="#seo">SEO</a>
+                <a href="#design">Design</a>
+            </div>
+        </div>
+        <a href="#links">O VagaKey</a>
+        <a href="#contact">Contato</a>
+        <div class="logo"><img src="./logo.png" alt="Logo VagaKey"></div>
+    </div>
+
+   
+    <div class="page">
+        <form method="POST" class="bilhetesVK">
+            <h1>Meus bilhetes</h1>
+            <div class="wallet">
+                <h2>Minha Carteira</h2>
+                <div class="ticket">
+                   
+                    <img src="/qr-code.png" alt="QR Code do Bilhete 1">
+                    
+                    <img src="./qr-code.png" alt="QR Code do Bilhete 2">
+                   
+                    <img src="./qr-code.png" alt="QR Code do Bilhete 3">
+                   
+                </div>
+            </div>
+            
+            <input type="submit" value="Acessar meus bilhetes" class="btn">
+        </form>
+    </div>
+
+    <script>
+      
+        const qrCodes = document.querySelectorAll('.ticket img');
+        let currentIndex = 0;
+
+     
+        document.querySelector('.ticket').addEventListener('click', () => {
+        
+            qrCodes[currentIndex].style.display = 'none';
+            
+            currentIndex = (currentIndex + 1) % qrCodes.length;
+          
+            qrCodes[currentIndex].style.display = 'block';
+        });
+    </script>
+
+</body>
+
+</html>

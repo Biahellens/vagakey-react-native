@@ -4,6 +4,11 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import CustomButton from '../../components/CustomButton';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../App';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 interface IFormInput {
   email: string;
@@ -16,12 +21,15 @@ const schema = yup.object().shape({
 });
 
 const LoginScreen: React.FC = () => {
+  const navigation = useNavigation<LoginScreenNavigationProp>();
+
   const { control, handleSubmit, formState: { errors } } = useForm<IFormInput>({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (data: IFormInput) => {
     console.log(data);
+    navigation.navigate('Home')
   };
 
   return (

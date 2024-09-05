@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veículo - VagaKey</title>
+    <link rel="stylesheet" href="main-veic.css">
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #222222; 
+            padding: 15px;
+        }
+
+        .navbar a, .dropbtn {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 20px;
+            font-size: 18px;
+        }
+
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: #575757;
+            color: #ffffff;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff; 
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: #333333; 
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 70px; 
+        }
+
+        .formCadVeic {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px; 
+            color: #000000; 
+        }
+
+        h1 {
+            color: #000000; 
+            margin: 0 0 20px; 
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        select, input[type="text"], input[type="number"], input[type="radio"] {
+            display: block;
+            width: calc(100% - 22px);
+            margin: 5px 0 15px;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 5px;
+            margin-left: 0;
+        }
+
+        .btn {
+            background-color: #333333;
+            color: #ffffff;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #575757;
+        }
+    </style>
+</head>
+<body>
+
+  
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#about">Histórico</a>
+        <div class="dropdown">
+            <button class="dropbtn">Meu Perfil</button>
+            <div class="dropdown-content">
+                <a href="#webdesign">Carteira</a>
+                <a href="#seo">SEO</a>
+                <a href="#design">Design</a>
+            </div>
+        </div>
+        <a href="#links">O VagaKey</a>
+        <a href="#contact">Contato</a>
+        <div class="logo"><img src="./" alt=""></div>
+    </div>
+
+
+    <div class="page">
+        <form method="POST" class="formCadVeic">
+            <h1>Dados do Veículo</h1>
+
+            <div class="tipoveicselec" id="tipoveicselec">
+                <label for="tipoveic">Tipo de veículo</label>
+                <select name="tipoveic" id="veiculos">
+                    <option value="x">Selecione...</option>
+                    <option value="carro">Carro</option>
+                    <option value="moto">Moto</option>
+                    <option value="outro">Outro</option>
+                </select>
+            </div>
+
+            <label for="modelo">Modelo</label>
+            <input type="text" placeholder="SUV / Hatch / Sedan / Etc...">
+
+            <label for="cor">Cor</label>
+            <input type="text" placeholder="Vermelho / Prata / Preto / Etc...">
+
+            <label for="ano">Ano</label>
+            <input type="number" placeholder="AAAA">
+
+            <label for="placa">Placa</label>
+            <input type="text" placeholder="A1BC23">
+
+            <label for="text">Veículo Especial?</label>
+            <input type="radio" name="especial" value="sim"><p>Sim</p>
+            <input type="radio" name="especial" value="nao"><p>Não</p>
+
+            <input type="submit" value="Prosseguir" class="btn">
+        </form>
+    </div>
+</body>
+</html>
+''
