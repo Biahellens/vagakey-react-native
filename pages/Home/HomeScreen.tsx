@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, Button, StyleSheet, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
 import ButtonMenu from '../../components/ButtonMenu';
 import DropDownPicker from 'react-native-dropdown-picker';
+import MapView, { Region } from 'react-native-maps';
+
+import * as Location from 'expo-location';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -18,6 +21,32 @@ const HomeScreen: React.FC = () => {
     { label: 'VAGAKEY - Shopping Cidade São Paulo', value: '02' },
     { label: 'VAGAKEY - Rua Haddock Lobo', value: '03' },
   ]);
+
+  const [location, setLocation] = useState<Location.LocationObject | null>(null);
+  const [region, setRegion] = useState<Region | undefined>(undefined);
+  const [errorMsg, setErrorMsg] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+
+      if (location) {
+        setRegion({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        });
+      }
+    })();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -49,7 +78,14 @@ const HomeScreen: React.FC = () => {
             setValue={setValue}
             setItems={setItems}
             placeholder='Busque o local para estacionar'
+            style={{ backgroundColor: '#ffffff' }}
+            dropDownContainerStyle={{
+              backgroundColor: '#ffffff',
+            }}
           />
+        </View>
+        <View style={styles.mapContainer}>
+          <MapView style={styles.map} region={region} />
         </View>
         <Button title="Ir para pagamento" onPress={() => navigation.navigate('PaymentForm')} />
       </View>
@@ -122,13 +158,25 @@ const styles = StyleSheet.create({
   },
   select: {
     width: '80%',
-    marginTop: 20
+    marginTop: 40,
+    zIndex: 2,
+    position: 'absolute',
   },
   textToday: {
     fontSize: 16,
     color: '#FF008A',
     fontWeight: '700'
-  }
+  },
+  mapContainer: {
+    marginTop: 10,
+    width: 285,
+    height: 285,
+    flex: 1
+  },
+  map: {
+    width: '100%',
+    height: '100%',
+  },
 });
 
 export default HomeScreen;
