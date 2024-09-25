@@ -87,7 +87,9 @@ const HomeScreen: React.FC = () => {
         <View style={styles.mapContainer}>
           <MapView style={styles.map} region={region} />
         </View>
-        <Button title="Ir para pagamento" onPress={() => navigation.navigate('PaymentForm')} />
+        <View style={styles.btnRedirect}>
+          <Button color={'#ffffff'}  title="Selecionar" onPress={() => navigation.navigate('SelectVacancy')} />
+        </View>
       </View>
 
       <View style={styles.boxFooter}>
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
   boxContent: {
     width: '100%',
     flexDirection: 'column',
-    height: 600,
+    height: '80%',
     alignItems: 'center',
     padding: 10
   },
@@ -169,14 +171,20 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     marginTop: 10,
-    width: 285,
-    height: 285,
+    width: '80%',
+    height: '80%',
     flex: 1
   },
   map: {
     width: '100%',
-    height: '100%',
+    height: '80%',
   },
+  btnRedirect: {
+    backgroundColor: '#FF008A',
+    width: '80%',
+    height: 40,
+    borderRadius: 5,
+  }
 });
 
 export default HomeScreen;

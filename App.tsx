@@ -6,12 +6,14 @@ import LoginScreen from './pages/Login/LoginScreen';
 import HomeScreen from './pages/Home/HomeScreen';
 import PaymentForm from './pages/PaymentForm/PaymentForm';
 import PersonRegistration from './pages/PersonRegistration/PersonRegistration';
+import SelectVacancy from './pages/SelectVacancy/SelectVacancy';
 
 export type RootStackParamList = {
   Home: undefined;
   Login: undefined;
   PaymentForm: undefined;
-  PersonRegistration: undefined
+  PersonRegistration: undefined;
+  SelectVacancy: undefined
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -24,6 +26,7 @@ const App: React.FC = () => {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="PaymentForm" component={PaymentForm} />
         <Stack.Screen name="PersonRegistration" component={PersonRegistration} />
+        <Stack.Screen name="SelectVacancy" component={SelectVacancy} />
       </Stack.Navigator>
     </NavigationContainer>
   );
