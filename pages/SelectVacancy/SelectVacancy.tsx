@@ -10,7 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-type SelectVacancyNavigationProp = StackNavigationProp<RootStackParamList, 'SelectVacancy'>;
+type SelectVacancyNavigationProp = StackNavigationProp<RootStackParamList, 'Vagas'>;
 
 interface IFormInput {
   modelo: string;
@@ -228,7 +228,7 @@ const SelectVacancy: React.FC = () => {
           />
 
           <View style={styles.btnRedirect}>
-            <Button color={'#ffffff'} title="Revisar e reservar" onPress={() => navigation.navigate('PaymentForm')} />
+            <Button color={'#ffffff'} title="Revisar e reservar" onPress={() => navigation.navigate('Pagamento')} />
           </View>
           <View style={styles.btnRedirect}>
             <Button color={'#ffffff'} title="Retornar" onPress={() => navigation.navigate('Home')} />
@@ -364,6 +364,7 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 40,
     borderRadius: 5,
+    marginTop: 20,
   }
 });
 

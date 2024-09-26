@@ -7,13 +7,15 @@ import HomeScreen from './pages/Home/HomeScreen';
 import PaymentForm from './pages/PaymentForm/PaymentForm';
 import PersonRegistration from './pages/PersonRegistration/PersonRegistration';
 import SelectVacancy from './pages/SelectVacancy/SelectVacancy';
+import ReservationsScreen from './pages/Reservations/Reservations';
 
 export type RootStackParamList = {
   Home: undefined;
   Login: undefined;
-  PaymentForm: undefined;
-  PersonRegistration: undefined;
-  SelectVacancy: undefined
+  Pagamento: undefined;
+  Registro: undefined;
+  Vagas: undefined;
+  Reservas: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -24,9 +26,10 @@ const App: React.FC = () => {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="PaymentForm" component={PaymentForm} />
-        <Stack.Screen name="PersonRegistration" component={PersonRegistration} />
-        <Stack.Screen name="SelectVacancy" component={SelectVacancy} />
+        <Stack.Screen name="Pagamento" component={PaymentForm} />
+        <Stack.Screen name="Registro" component={PersonRegistration} />
+        <Stack.Screen name="Vagas" component={SelectVacancy} />
+        <Stack.Screen name="Reservas" component={ReservationsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
