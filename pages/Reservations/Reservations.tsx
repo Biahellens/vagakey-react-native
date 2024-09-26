@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Text, View, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Button, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
@@ -52,31 +52,38 @@ const ReservationsScreen: React.FC = () => {
           />
         </View>
       </View>
-
-      <View style={styles.boxContent}>
-        <Text style={styles.textPage}>Vagas reservadas</Text>
-        <View style={[styles.cardVacancy, qrCode === true ? {height: '80%'} : {height: 260}]}>
-          <Text style={styles.textVacancy}>VagaKey - Reserva </Text>
-          <View style={styles.barCode}>
-            <TouchableOpacity onPress={expansiveCode} >
-              <QRCode
-                size={qrCode === true ? 260 : 140}
-                style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                value={codigo}
-                viewBox={`0 0 256 256`}
-              />
-            </TouchableOpacity>
+      <ScrollView style={styles.boxContentSCroll}>
+        <View style={styles.boxContent}>
+          <Text style={styles.textPage}>Vagas reservadas</Text>
+          <View style={styles.boxImg}>
+            <Image
+              source={require('../../assets/groupCars.png')}
+              style={styles.imgCars}
+            />
           </View>
-          <View style={styles.cardText}>
-            <Text style={styles.textVacancy}>Avenida Paulista, 1234</Text>
-            <View style={styles.cardFooter}>
-              <Text style={styles.textVacancy}>Meio período</Text>
-              <Text style={styles.textVacancy}>18 de mar. 2024</Text>
+          <View style={[styles.cardVacancy, qrCode === true ? {height: '80%'} : {height: 260}]}>
+            <Text style={styles.textVacancy}>VagaKey - Reserva </Text>
+            <View style={styles.barCode}>
+              <TouchableOpacity onPress={expansiveCode} >
+                <QRCode
+                  size={qrCode === true ? 260 : 140}
+                  style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                  value={codigo}
+                  viewBox={`0 0 256 256`}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.cardText}>
+              <Text style={styles.textVacancy}>Avenida Paulista, 1234</Text>
+              <View style={styles.cardFooter}>
+                <Text style={styles.textVacancy}>Meio período</Text>
+                <Text style={styles.textVacancy}>18 de mar. 2024</Text>
+              </View>
             </View>
           </View>
-        </View>
 
-      </View>
+        </View>
+      </ScrollView>
 
       <View style={styles.boxFooter}>
       </View>
@@ -140,9 +147,9 @@ const styles = StyleSheet.create({
   boxContent: {
     width: '100%',
     flexDirection: 'column',
-    height: '80%',
+    height: 'auto',
     alignItems: 'center',
-    padding: 10
+    padding: 10,
   },
   textPage: {
     fontSize: 24,
@@ -186,7 +193,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-  }
+  },
+  boxImg: {
+    width: '100%',
+    height: 'auto',
+    marginBottom: 20,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imgCars: {
+    width: 335,
+    height: 120,
+  },
+  boxContentSCroll: {
+    width: '100%',
+  },
 });
 
 export default ReservationsScreen;
