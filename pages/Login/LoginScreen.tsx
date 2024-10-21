@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, Image,  } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -7,17 +7,18 @@ import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { login } from '../../services/authService';
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 interface IFormInput {
   email: string;
-  password: string;
+  senha: string;
 }
 
 const schema = yup.object().shape({
   email: yup.string().email('Email inválido').required('Email é obrigatório'),
-  password: yup.string().min(6, 'A senha deve ter pelo menos 6 caracteres').required('Senha é obrigatória'),
+  senha: yup.string().min(6, 'A senha deve ter pelo menos 6 caracteres').required('Senha é obrigatória'),
 });
 
 const LoginScreen: React.FC = () => {
@@ -27,9 +28,17 @@ const LoginScreen: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: IFormInput) => {
+  const onSubmit = async (data: IFormInput) => {
+    try {
+      const response = await login(data.email, data.senha); //chama a função de login do authService
+      if (response){
+        navigation.navigate('Home'); //navega para a tela home se sucesso
+      }
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Erro de login', 'Falha ao fazer login, verifique suas credenciais.');
+    }
     console.log(data);
-    navigation.navigate('Home')
   };
 
   return (
@@ -66,7 +75,7 @@ const LoginScreen: React.FC = () => {
 
         <Controller
           control={control}
-          name="password"
+          name="senha"
           render={({ field: { onChange, onBlur, value } }) => (
             <View style={styles.inputContainer}>
               <TextInput
@@ -77,7 +86,7 @@ const LoginScreen: React.FC = () => {
                 secureTextEntry
                 placeholder='Senha'
               />
-              {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
+              {errors.senha && <Text style={styles.errorText}>{errors.senha.message}</Text>}
             </View>
           )}
         />
@@ -128,7 +137,7 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 16,
     fontFamily: 'Righteous',
-    fontWeight: 400,
+    fontWeight: '400',
     fontSize: 18,
     lineHeight: 22,
     textAlign: 'center',
@@ -137,7 +146,7 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 10,
     fontFamily: 'Righteous',
-    fontWeight: 700,
+    fontWeight: '700',
     fontSize: 12,
     lineHeight: 15,
     textAlign: 'center',

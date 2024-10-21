@@ -24,8 +24,8 @@ const App: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Pagamento" component={PaymentForm} />
         <Stack.Screen name="Registro" component={PersonRegistration} />
         <Stack.Screen name="Vagas" component={SelectVacancy} />
