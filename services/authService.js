@@ -1,6 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import api from './api';
 
+//Função de registro
+
+export const register = async (nome, email, senha, telefone) => {
+  try {
+    const response = await api.post('/user/create', {nome, email, senha, telefone});
+    return response.data;
+  } catch (error) {
+    console.error('Erro de registro:', error);
+    throw error;
+  }
+};
+
 // Função de login
 export const login = async (email, senha) => {
   try {

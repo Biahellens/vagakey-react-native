@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, Image, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, Alert, TouchableOpacity } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -93,6 +93,9 @@ const LoginScreen: React.FC = () => {
         <CustomButton title="Login" onPress={handleSubmit(onSubmit)} />
 
         <Text style={styles.text}>Esqueceu a senha?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Registro')}>
+          <Text style={styles.text}>Cadastre-se</Text>
+        </TouchableOpacity>
         <Text style={styles.text}>Termos e Privacidade</Text>
       </View>
 
