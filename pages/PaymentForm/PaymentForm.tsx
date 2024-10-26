@@ -122,7 +122,7 @@ const PaymentForm: React.FC = () => {
           )}
 
           <View style={styles.btnRedirect}>
-            <Button color={'#ffffff'} title="Pagar" onPress={() => navigation.navigate('Reservas')} />
+            <Button color={'#FF008A'} title="Pagar" onPress={() => navigation.navigate('Reservas')} />
           </View>
         </View>
       </ScrollView>
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#FF008A',
   },
   select: {
     width: '80%',

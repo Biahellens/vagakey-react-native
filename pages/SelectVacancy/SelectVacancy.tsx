@@ -62,9 +62,17 @@ const SelectVacancy: React.FC = () => {
   });
 
   const [date, setDate] = useState(new Date());
-  const onChange = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate;
-    setDate(currentDate);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+
+  const onDateChange = (event: any, selectedDate: any) => {
+    setShowDatePicker(false);
+    if (selectedDate) setDate(selectedDate);
+  };
+
+  const onTimeChange = (event: any, selectedDate: any) => {
+    setShowTimePicker(false);
+    if (selectedDate) setDate(selectedDate);
   };
 
   return (
@@ -94,31 +102,33 @@ const SelectVacancy: React.FC = () => {
 
           <View style={styles.dateSelect}>
             <Text style={{ marginBottom: 10 }}>Selecione a data da reserva</Text>
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={'date'}
-              is24Hour={true}
-              onChange={onChange}
-              themeVariant='light'
-
-            />
+            <Button title="Selecionar Data" onPress={() => setShowDatePicker(true)} />
+            {showDatePicker && (
+              <DateTimePicker
+                value={date}
+                mode="date"
+                is24Hour={true}
+                onChange={onDateChange}
+                themeVariant="light"
+              />
+            )}
           </View>
 
           <View style={styles.dateSelect}>
-            <Text style={{ marginBottom: 10 }}>Selecione o horário inicio da reserva</Text>
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={'time'}
-              is24Hour={true}
-              onChange={onChange}
-              themeVariant='light'
-
-            />
+            <Text style={{ marginBottom: 10 }}>Selecione o horário início da reserva</Text>
+            <Button title="Selecionar Hora" onPress={() => setShowTimePicker(true)} />
+            {showTimePicker && (
+              <DateTimePicker
+                value={date}
+                mode="time"
+                is24Hour={true}
+                onChange={onTimeChange}
+                themeVariant="light"
+              />
+            )}
           </View>
 
-          <View style={[styles.select, open && { zIndex: 10 }]}>
+          <View style={[styles.select, open && { zIndex: 30 }]}>
             <DropDownPicker
               open={open}
               value={value}
@@ -126,7 +136,11 @@ const SelectVacancy: React.FC = () => {
               setOpen={setOpen}
               setValue={setValue}
               setItems={setItems}
-              placeholder='Escolha o tipo da vaga'
+              placeholder="Escolha o tipo da vaga"
+              onOpen={() => {
+                setOpenNVacancy(false);
+                setOpenVacancy(false);
+              }}
               style={{ backgroundColor: '#ffffff' }}
               dropDownContainerStyle={{
                 backgroundColor: '#ffffff',
@@ -143,7 +157,7 @@ const SelectVacancy: React.FC = () => {
               }}
             />
           </View>
-          <View style={[styles.select, openNVacancy && { zIndex: 9 }]}>
+          <View style={[styles.select, openNVacancy && { zIndex: 20 }]}>
             <DropDownPicker
               open={openNVacancy}
               value={valueNVacancy}
@@ -151,7 +165,11 @@ const SelectVacancy: React.FC = () => {
               setOpen={setOpenNVacancy}
               setValue={setValueNVacancy}
               setItems={setItemsNVacancy}
-              placeholder='Escolha o número de vagas'
+              placeholder="Escolha o número de vagas"
+              onOpen={() => {
+                setOpen(false);
+                setOpenVacancy(false);
+              }}
               style={{ backgroundColor: '#ffffff' }}
               dropDownContainerStyle={{
                 backgroundColor: '#ffffff',
@@ -168,7 +186,7 @@ const SelectVacancy: React.FC = () => {
               }}
             />
           </View>
-          <View style={[styles.select, openVacancy && { zIndex: 8 }]}>
+          <View style={[styles.select, openVacancy && { zIndex: 10 }]}>
             <DropDownPicker
               open={openVacancy}
               value={valueVacancy}
@@ -176,7 +194,11 @@ const SelectVacancy: React.FC = () => {
               setOpen={setOpenVacancy}
               setValue={setValueVacancy}
               setItems={setItemsVacancy}
-              placeholder='Selecione a vaga'
+              placeholder="Selecione a vaga"
+              onOpen={() => {
+                setOpen(false);
+                setOpenNVacancy(false);
+              }}
               style={{ backgroundColor: '#ffffff' }}
               dropDownContainerStyle={{
                 backgroundColor: '#ffffff',
@@ -204,7 +226,7 @@ const SelectVacancy: React.FC = () => {
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
-                  placeholder='Modelo'
+                  placeholder="Modelo"
                 />
                 {errors.modelo && <Text style={styles.errorText}>{errors.modelo.message}</Text>}
               </View>
@@ -220,7 +242,7 @@ const SelectVacancy: React.FC = () => {
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
-                  placeholder='Placa'
+                  placeholder="Placa"
                 />
                 {errors.placa && <Text style={styles.errorText}>{errors.placa.message}</Text>}
               </View>
@@ -228,19 +250,17 @@ const SelectVacancy: React.FC = () => {
           />
 
           <View style={styles.btnRedirect}>
-            <Button color={'#ffffff'} title="Revisar e reservar" onPress={() => navigation.navigate('Pagamento')} />
+            <Button color="#FF008A" title="Revisar e reservar" onPress={() => navigation.navigate('Pagamento')} />
           </View>
           <View style={styles.btnRedirect}>
-            <Button color={'#ffffff'} title="Retornar" onPress={() => navigation.navigate('Home')} />
+            <Button color="#FF008A" title="Retornar" onPress={() => navigation.navigate('Home')} />
           </View>
         </View>
-
       </ScrollView>
-      <View style={styles.boxFooter}>
-      </View>
+      <View style={styles.boxFooter}></View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -270,12 +290,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 10
+    padding: 10,
   },
   textWelcome: {
     color: '#ffffff',
     fontSize: 16,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   userIcon: {
     width: 35,
@@ -309,11 +329,6 @@ const styles = StyleSheet.create({
     width: '80%',
     marginTop: 20,
   },
-  textToday: {
-    fontSize: 16,
-    color: '#FF008A',
-    fontWeight: '700'
-  },
   selectedParking: {
     width: '80%',
     marginTop: 40,
@@ -324,10 +339,10 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     height: 50,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ff008A',
     alignItems: 'center',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   inputContainer: {
     marginTop: 20,
@@ -345,7 +360,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     justifyContent: 'center',
-    color: '#000000'
+    color: '#000000',
   },
   errorText: {
     color: 'red',
@@ -357,7 +372,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   btnRedirect: {
     backgroundColor: '#FF008A',
@@ -365,7 +380,9 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 5,
     marginTop: 20,
-  }
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default SelectVacancy;

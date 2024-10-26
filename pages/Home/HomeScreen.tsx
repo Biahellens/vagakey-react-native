@@ -88,7 +88,7 @@ const HomeScreen: React.FC = () => {
           <MapView style={styles.map} region={region} />
         </View>
         <View style={styles.btnRedirect}>
-          <Button color={'#ffffff'}  title="Selecionar" onPress={() => navigation.navigate('Vagas')} />
+          <Button color={'#ff008A'}  title="Selecionar" onPress={() => navigation.navigate('Vagas')} />
         </View>
       </View>
 
